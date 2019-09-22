@@ -85,6 +85,11 @@ class CI_Controller {
 		$this->load =& load_class('Loader', 'core');
 		$this->load->initialize();
 		log_message('info', 'Controller Class Initialized');
+
+
+		header('Access-Control-Allow-Headers: Content-Type');
+		header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+		header('Access-Control-Allow-Origin: *');
 	}
 
 	// --------------------------------------------------------------------

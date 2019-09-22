@@ -1,0 +1,29 @@
+<div ng-if="showSuccess">
+    <div class="alert alert-success">
+        This item was successfully added to your shopping cart!
+    </div>
+</div>
+
+<h2>{{ product.product_name }}</h2>
+<hr>
+<h4>${{ product.price }}</h4>
+
+<div class="row">
+    <div class="col-md-4">
+        <a href="{{imageDir}}{{product.picture}}" target="_blank">
+            <img ng-src="{{imageDir}}{{product.picture}}" width="200px">
+        </a>
+    </div>
+    <div class="col-md-8">
+        <h4>Product description</h4>
+        <p>
+            {{ product.description }}
+        </p>
+    </div>
+</div>
+
+<div class="wrapper">
+    <button class="btn btn-info btn-block" ng-click="addToShoppingCart(product.id)">
+        Add To Shopping Cart
+    </button>
+</div>

@@ -23,9 +23,9 @@ class ShoppingCarts extends CI_Controller
         echo json_encode($result);
     }
 
-    public function removeProduct($order_id)
+    public function removeProduct($productId)
     {
-        $result = $this->shoppingCartsModel->deleteProductFromShoppingCart($order_id);
+        $result = $this->shoppingCartsModel->deleteProductFromShoppingCart(self::USER_ID, $productId);
 
         echo json_encode($result);
     }

@@ -21,7 +21,7 @@ class shoppingCartsModel extends CI_Model
 
     public function getShoppingCartProducts(int $user_id)
     {
-        $this->db->select('s.user_id, s.product_id, p.name, p.price, c.name AS category_name');
+        $this->db->select('s.user_id, s.product_id, p.name, p.price, p.picture, c.name AS category_name');
         $this->db->from('shopping_orders AS s');
         $this->db->join('products AS p', 's.product_id = p.id');
         $this->db->join('categories AS c', 'p.category_id = c.id');
@@ -32,9 +32,10 @@ class shoppingCartsModel extends CI_Model
         return $result;
     }
 
-    public function deleteProductFromShoppingCart($order_id)
+    public function deleteProductFromShoppingCart($userId, $productId)
     {
-        $this->db->where('order_id', $order_id);
+        $this->db->where('product_id', $productId);
+        $this->db->where('user_id',$userId);
 
         $result = $this->db->delete('shopping_orders');
 

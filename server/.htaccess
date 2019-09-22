@@ -1,0 +1,4 @@
+<Directory /public/images>
+    Allow From All
+    Satisfy Any
+</Directory>
