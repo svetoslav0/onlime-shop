@@ -41,4 +41,13 @@ class shoppingCartsModel extends CI_Model
 
         return $result;
     }
+
+    public function emptyShoppingCartForUser($userId)
+    {
+        $this->db->where('user_id', $userId);
+
+        $result = $this->db->delete('shopping_orders');
+
+        return $result;
+    }
 }

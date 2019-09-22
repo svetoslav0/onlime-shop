@@ -60,3 +60,5 @@ $route['get_products_in_category/(:num)']['get'] = 'products/findAllForCategory/
 $route['add_product_in_shopping_cart/(:num)']['post'] = 'shoppingCarts/addProduct/$1';
 $route['remove_product_from_shopping_cart/(:num)']['post'] = 'shoppingCarts/removeProduct/$1';
 $route['get_shopping_cart_products']['get'] = 'shoppingCarts/findProductsInCart';
+$route['finish_order']['post'] = 'shoppingCarts/finishOrder';
+$route['empty_shopping_cart']['post'] = 'shoppingCarts/emptyShoppingCart';

@@ -43,9 +43,24 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
             return deffered.promise;
         }
 
+        function emptyShoppingCart() {
+            let deffered = $q.defer();
+
+            $http.post('http://localhost:7878/empty_shopping_cart')
+                .then(function(result) {
+                    deffered.resolve(result.data);
+                }, function (err) {
+                    deffered.reject(err);
+                }
+            );
+
+            return deffered.promise;
+        }
+
         return {
             getShoppingCartProducts,
-            removeProductFromShoppingCart
+            removeProductFromShoppingCart,
+            emptyShoppingCart
         }
     }
 ])
@@ -80,6 +95,15 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
                     loadProducts();
                 }
             );
+        }
+
+        $scope.emptyShoppingCart = function () {
+            shoppingCartApi.emptyShoppingCart()
+                .then(function(response) {
+                    if (response) {
+                        loadProducts();
+                    }
+                })
         }
     }
 ]);

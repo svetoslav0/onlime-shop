@@ -36,4 +36,19 @@ class ShoppingCarts extends CI_Controller
 
         echo json_encode($products);
     }
+
+    public function finishOrder()
+    {
+        // Save the order and show it in the admin panel or somewhere else
+        // $this->shoppingCartsModel->saveOrder($this->input->post()); ...
+
+        $this->emptyShoppingCart();
+    }
+
+    public function emptyShoppingCart()
+    {
+        $result = $this->shoppingCartsModel->emptyShoppingCartForUser(self::USER_ID);
+
+        echo json_encode($result);
+    }
 }

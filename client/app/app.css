@@ -35,3 +35,7 @@ td {
 th, .wrapper {
     text-align: center;
 }
+
+input.ng-invalid.ng-dirty {
+    background-color: pink;
+}
