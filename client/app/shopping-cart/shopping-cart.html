@@ -1,38 +1,44 @@
 <h3>Shopping Cart</h3>
 <hr>
-<table border="1">
-    <thead>
-        <th>Image</th>
-        <th>Product</th>
-        <th>Price</th>
-        <th>Remove Product</th>
-    </thead>
-    <tbody>
-        <tr ng-repeat="product in products">
-            <td>
-                <img ng-src="{{imageDir}}{{product.picture}}" width="100px">
-            </td>
-            <td>
-                {{ product.name }}
-            </td>
-            <td>
-                <strong>
-                    ${{ product.price }}
-                </strong>
-            </td>
-            <td>
-                <button class="btn btn-danger" ng-click="removeProductFromShoppingCart(product.product_id)">
-                    Remove
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div ng-if="showTable">
+    <table border="1">
+        <thead>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Remove Product</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="product in products">
+                <td>
+                    <img ng-src="{{imageDir}}{{product.picture}}" width="100px">
+                </td>
+                <td>
+                    {{ product.name }}
+                </td>
+                <td>
+                    <strong>
+                        ${{ product.price }}
+                    </strong>
+                </td>
+                <td>
+                    <button class="btn btn-danger" ng-click="removeProductFromShoppingCart(product.product_id)">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<h3>Total price: ${{totalPrice}}</h3>
-<button class="btn btn-danger" ng-click="emptyShoppingCart()">
-    Clear Shopping Cart
-</button>
-<a href="#!/confirm-order" class="btn btn-success">
-    Next
-</a>
+    <h3>Total price: ${{totalPrice}}</h3>
+    <button class="btn btn-danger" ng-click="emptyShoppingCart()">
+        Clear Shopping Cart
+    </button>
+    <a href="#!/confirm-order" class="btn btn-success">
+        Next
+    </a>
+</div>
+
+<div ng-if="!showTable">
+    <div ng-include="'shopping-cart/empty-shopping-cart-notifier.html'"></div>
+</div>

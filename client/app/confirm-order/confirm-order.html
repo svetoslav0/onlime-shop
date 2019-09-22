@@ -7,41 +7,47 @@ Total Price: <strong>${{totalPrice}}</strong>
 <hr>
 <h4>Shipping Information</h4>
 
-<form name="confrimOrderForm">
-    Name: 
-        <input 
-            type="text" 
-            required 
-            ng-pattern="/^[a-zA-Z\s]+$/"
-            ng-model="user.name" />
-        <br />
-    Address: 
-        <input 
-            type="text" 
-            required 
-            ng-model="user.address" />
-        <br />
+<div ng-if="showForm">
+    <form name="confrimOrderForm">
+        Name: 
+            <input 
+                type="text" 
+                required 
+                ng-pattern="/^[a-zA-Z\s]+$/"
+                ng-model="user.name" />
+            <br />
+        Address: 
+            <input 
+                type="text" 
+                required 
+                ng-model="user.address" />
+            <br />
 
-    Phone Number: 
-        <input 
-            type="text" 
-            required
-            ng-pattern="/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/"
-            ng-model="user.number" />
-        <br />
+        Phone Number: 
+            <input 
+                type="text" 
+                required
+                ng-pattern="/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/"
+                ng-model="user.number" />
+            <br />
 
-    Email:
-        <input 
-            type="email"
-            ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
-            required
-            ng-model="user.email" />
-        <br />
-        
-    <button 
-        ng-click="submit(user)" 
-        ng-disabled="confrimOrderForm.$invalid"
-        class="btn btn-success">
-            Sumbit
-    </button>
-</form>
+        Email:
+            <input 
+                type="email"
+                ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                required
+                ng-model="user.email" />
+            <br />
+            
+        <button 
+            ng-click="submit(user)" 
+            ng-disabled="confrimOrderForm.$invalid"
+            class="btn btn-success">
+                Sumbit
+        </button>
+    </form>
+</div>
+
+<div ng-if="!showForm">
+    <div ng-include="'shopping-cart/empty-shopping-cart-notifier.html'"></div>
+</div>

@@ -55,6 +55,12 @@ angular.module('myApp.confirmOrder', ['ngRoute'])
                     $scope.totalPrice += +product.price;
                 });
 
+                $scope.showForm = true;
+                
+                if ($scope.totalPrice == 0) {
+                    $scope.showForm = false;
+                }
+
                 $scope.totalPrice = $scope.totalPrice.toFixed(2);
             }
         );

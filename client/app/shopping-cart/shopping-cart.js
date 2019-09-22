@@ -74,6 +74,11 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
                 .then(function(fetchedProducts) {
                     $scope.imageDir = "http://localhost:7878/public/images/";
 
+                    $scope.showTable = true;
+                    if(fetchedProducts.length == 0) {
+                        $scope.showTable = false;
+                    }
+
                     $scope.products = fetchedProducts;
 
                     let totalPrice = 0;
