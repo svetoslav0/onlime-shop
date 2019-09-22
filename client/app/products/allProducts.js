@@ -38,10 +38,15 @@ angular.module('myApp.allProducts', ['ngRoute'])
     'allProductsApi',
     function($scope, allProductsApi) {
         allProductsApi.getAllProducts()
-            .then(function(data) {
+            .then(function(products) {
                 
                 $scope.imageDir = "http://localhost:7878/public/images/";
-                $scope.products = data;
+                $scope.products = products;
+
+                products.forEach(function(product) {
+                    let currentPrice = +product.price;
+                    product.price = currentPrice.toFixed(2);
+                });
             }, function (err) {
                 console.log(err);
             })
