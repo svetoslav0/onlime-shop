@@ -27,7 +27,7 @@ angular.module('myApp.product', ['ngRoute'])
                 }, function(err) {
                     deffered.reject(err);
                 });
-
+                
             return deffered.promise;
         }
 
@@ -36,7 +36,11 @@ angular.module('myApp.product', ['ngRoute'])
 
             $http.post('http://localhost:7878/add_product_in_shopping_cart/' + productId)
                 .then(function(result) {
-                    deffered.resolve(result.data);
+                    if (result.data.productAdded) {
+                        deffered.resolve(true);
+                    } else {
+                        deffered.reject(result.data.message);
+                    }
                 }, function(err) {
                     deffered.reject(err);
                 }
@@ -78,17 +82,20 @@ angular.module('myApp.product', ['ngRoute'])
         $scope.addToShoppingCart = function (productId) {
             productApi.addToShoppingCart(productId)
                 .then(function (result) {
-                    if (result) {
-                        $scope.showSuccess = true;
-                        
-                        $timeout(function() {
-                            $scope.showSuccess = false;
-                        }, 5000);
-                    } else {
-
-                    }
-                }
-            );
+                    $scope.showSuccess = true;
+                    
+                    $timeout(function() {
+                        $scope.showSuccess = false;
+                    }, 5000);
+                
+                }, function (err) {
+                    $scope.showError = true;
+                    $scope.message = err;
+                    
+                    $timeout(function() {
+                        $scope.showError = false;
+                    }, 5000);
+                });
         }
 
     }

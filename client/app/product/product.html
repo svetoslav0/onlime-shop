@@ -4,6 +4,12 @@
     </div>
 </div>
 
+<div ng-if="showError">
+    <div class="alert alert-danger">
+        {{message}}
+    </div>
+</div>
+
 <div ng-if="productFound">
     <h2>{{ product.product_name }}</h2>
     <hr>
