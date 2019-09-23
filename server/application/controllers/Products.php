@@ -24,7 +24,17 @@ class Products extends CI_Controller
     {
         $product = $this->productsModel->getOneById($id);
 
-        echo json_encode($product);
+        if ($product !== null) {
+            echo json_encode([
+                'found' => true,
+                'data' => $product
+            ]);
+        } else {
+            echo json_encode([
+                'found' => false,
+                'message' => 'The product you are looking for does not exist!'
+            ]);
+        }
     }
 
     public function findAllForCategory($category_id)

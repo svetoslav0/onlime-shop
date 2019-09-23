@@ -49,6 +49,6 @@ angular.module('myApp.allProducts', ['ngRoute'])
                 });
             }, function (err) {
                 console.log(err);
-            })
+        })
     }
 ]);

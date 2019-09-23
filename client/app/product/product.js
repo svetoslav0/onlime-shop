@@ -19,7 +19,11 @@ angular.module('myApp.product', ['ngRoute'])
 
             $http.get('http://localhost:7878/get_product_details/' + productId)
                 .then(function(result) {
-                    deffered.resolve(result.data);
+                    if (result.data.found) {
+                        deffered.resolve(result.data.data);
+                    } else {
+                        deffered.reject(result.data.message);
+                    }
                 }, function(err) {
                     deffered.reject(err);
                 });
@@ -59,14 +63,17 @@ angular.module('myApp.product', ['ngRoute'])
 
         productApi.getProductDetails(productId)
             .then(function(product) {
+                $scope.productFound = true;
                 $scope.imageDir = "http://localhost:7878/public/images/";
 
                 let productPrice = +product.price;
                 product.price = productPrice.toFixed(2);
 
                 $scope.product = product;
-            }
-        );
+            }, function (err) {
+                $scope.productFound = false;
+                $scope.message = err;
+            });
 
         $scope.addToShoppingCart = function (productId) {
             productApi.addToShoppingCart(productId)
