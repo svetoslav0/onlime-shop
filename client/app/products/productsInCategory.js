@@ -20,7 +20,11 @@ angular.module('myApp.productsInCategory', ['ngRoute'])
 
             $http.get('http://localhost:7878/get_products_in_category/' + categoryId)
                 .then(function(result) {
-                    deffered.resolve(result.data);
+                    if (result.data.found) {
+                        deffered.resolve(result.data.data);
+                    } else {
+                        deffered.reject(result.data.message);
+                    }
                 }, function(err) {
                     deffered.reject(err);
                 })
@@ -44,6 +48,7 @@ angular.module('myApp.productsInCategory', ['ngRoute'])
 
         productsInCategoryApi.getProductsInCategory(categoryId)
             .then(function(products) {
+                $scope.productsFound = true;
 
                 products.forEach(function(product) {
                     let currentPrice = +product.price;
@@ -54,7 +59,12 @@ angular.module('myApp.productsInCategory', ['ngRoute'])
                 $scope.products = products;
 
                 
-            });
+            }, function (err) {
+                $scope.productsFound = false;
+
+                $scope.message = err;
+            }
+        );
 
     }
 ]);

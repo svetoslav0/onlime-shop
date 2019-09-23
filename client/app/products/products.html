@@ -1,37 +1,43 @@
-<strong>Search</strong> <input ng-model="searchProduct" type="text" />
-<table>
-    <thead>
-        <tr>
-            <th>
-                Image
-            </th>
-            <th>
-                Product
-            </th>
-            <th>
-                Price
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="product in products | filter:searchProduct">
-            <td>
-                <a href="#!/product/{{product.id}}">
-                    <img ng-src="{{imageDir}}{{product.picture}}" width="200px">
-                </a>
-            </td>
-            <td>
-                <strong>
+<div ng-if="productsFound">
+    <strong>Search</strong> <input ng-model="searchProduct" type="text" />
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Product
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="product in products | filter:searchProduct">
+                <td>
                     <a href="#!/product/{{product.id}}">
-                        {{ product.product_name }}
+                        <img ng-src="{{imageDir}}{{product.picture}}" width="200px">
                     </a>
-                </strong>
-            </td>
-            <td>
-                <strong>
-                    ${{ product.price }}
-                </strong>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                </td>
+                <td>
+                    <strong>
+                        <a href="#!/product/{{product.id}}">
+                            {{ product.product_name }}
+                        </a>
+                    </strong>
+                </td>
+                <td>
+                    <strong>
+                        ${{ product.price }}
+                    </strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div ng-if="!productsFound">
+    <i>{{message}}</i>
+</div>

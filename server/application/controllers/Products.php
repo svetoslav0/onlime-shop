@@ -7,6 +7,9 @@
 
 class Products extends CI_Controller
 {
+    const NON_EXISTING_PRODUCT_MESSAGE = 'The product you are looking for does not exist!';
+    const NON_EXISTING_CATEGORY_MESSAGE = 'The category you are looking for does not exist!';
+
     public function __construct()
     {
         parent::__construct();
@@ -24,7 +27,7 @@ class Products extends CI_Controller
     {
         $product = $this->productsModel->getOneById($id);
 
-        if ($product !== null) {
+        if ($product) {
             echo json_encode([
                 'found' => true,
                 'data' => $product
@@ -32,7 +35,7 @@ class Products extends CI_Controller
         } else {
             echo json_encode([
                 'found' => false,
-                'message' => 'The product you are looking for does not exist!'
+                'message' => self::NON_EXISTING_PRODUCT_MESSAGE
             ]);
         }
     }
@@ -41,6 +44,16 @@ class Products extends CI_Controller
     {
         $products = $this->productsModel->getProductsForCategory($category_id);
 
-        echo json_encode($products);
+        if ($products) {
+            echo json_encode([
+                'found' => true,
+                'data' => $products
+            ]);
+        } else {
+            echo json_encode([
+                'found' => false,
+                'message' => self::NON_EXISTING_CATEGORY_MESSAGE
+            ]);
+        }
     }
 }

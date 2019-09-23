@@ -39,6 +39,7 @@ angular.module('myApp.allProducts', ['ngRoute'])
     function($scope, allProductsApi) {
         allProductsApi.getAllProducts()
             .then(function(products) {
+                $scope.productsFound = true;
                 
                 $scope.imageDir = "http://localhost:7878/public/images/";
                 $scope.products = products;
