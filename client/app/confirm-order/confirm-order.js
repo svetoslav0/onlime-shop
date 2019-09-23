@@ -13,13 +13,14 @@ angular.module('myApp.confirmOrder', ['ngRoute'])
 .factory('confirmOrderApi', [
     '$http',
     '$q',
-    function($http, $q) {
+    'CONFIG',
+    function($http, $q, CONFIG) {
 
         function finishOrder(userData) {
 
             let deffered = $q.defer();
 
-            $http.post('http://localhost:7878/finish_order', userData, {
+            $http.post(CONFIG.host + '/finish_order', userData, {
                 headers: {
                     'Content-Type': 'multipart/form-data; charset=utf-8; boundary=' + Math.random().toString().substr(2)
                 }

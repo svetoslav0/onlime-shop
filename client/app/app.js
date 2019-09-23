@@ -12,6 +12,10 @@ angular.module('myApp', [
     'myApp.version'
 ])
 
+.constant('CONFIG', {
+    host: 'http://localhost:7878'
+})
+
 .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
 
@@ -21,12 +25,13 @@ angular.module('myApp', [
 .factory('api', [
     '$http', 
     '$q',
-    function ($http, $q) {
+    'CONFIG',
+    function ($http, $q, CONFIG) {
 
         function getAllCategories() {
             let deffered = $q.defer();
 
-            $http.get('http://localhost:7878/get_categories')
+            $http.get(CONFIG.host + '/get_categories')
                 .then(function (result) {
                     deffered.resolve(result.data);
                 }, function (err) {

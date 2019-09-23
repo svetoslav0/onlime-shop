@@ -5,12 +5,13 @@ angular.module('myApp.menu', ['ngRoute'])
 .factory('api', [
     '$http', 
     '$q',
-    function ($http, $q) {
+    'CONFIG',
+    function ($http, $q, CONFIG) {
 
         function getAllCategories() {
             let deffered = $q.defer();
 
-            $http.get('http://localhost:7878/get_categories')
+            $http.get(CONFIG.host + '/get_categories')
                 .then(function (result) {
                     deffered.resolve(result.data);
                 }, function (err) {

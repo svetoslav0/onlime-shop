@@ -13,12 +13,13 @@ angular.module('myApp.productsInCategory', ['ngRoute'])
 .factory('productsInCategoryApi', [
     '$http',
     '$q',
-    function($http, $q) {
+    'CONFIG',
+    function($http, $q, CONFIG) {
 
         function getProductsInCategory(categoryId) {
             let deffered = $q.defer();
 
-            $http.get('http://localhost:7878/get_products_in_category/' + categoryId)
+            $http.get(CONFIG.host + '/get_products_in_category/' + categoryId)
                 .then(function(result) {
                     if (result.data.found) {
                         deffered.resolve(result.data.data);
@@ -42,7 +43,8 @@ angular.module('myApp.productsInCategory', ['ngRoute'])
     '$scope',
     '$routeParams',
     'productsInCategoryApi',
-    function($scope, $routeParams, productsInCategoryApi) {
+    'CONFIG',
+    function($scope, $routeParams, productsInCategoryApi, CONFIG) {
 
         let categoryId = $routeParams.categoryId;
 
@@ -55,7 +57,7 @@ angular.module('myApp.productsInCategory', ['ngRoute'])
                     product.price = currentPrice.toFixed(2);
                 });
 
-                $scope.imageDir = "http://localhost:7878/public/images/";
+                $scope.imageDir = CONFIG.host + "/public/images/";
                 $scope.products = products;
 
                 

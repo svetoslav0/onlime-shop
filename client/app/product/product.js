@@ -12,12 +12,13 @@ angular.module('myApp.product', ['ngRoute'])
 .factory('productApi', [
     '$http',
     '$q',
-    function($http, $q) {
+    'CONFIG',
+    function($http, $q, CONFIG) {
 
         function getProductDetails(productId) {
             let deffered = $q.defer();
 
-            $http.get('http://localhost:7878/get_product_details/' + productId)
+            $http.get(CONFIG.host + '/get_product_details/' + productId)
                 .then(function(result) {
                     if (result.data.found) {
                         deffered.resolve(result.data.data);
@@ -34,7 +35,7 @@ angular.module('myApp.product', ['ngRoute'])
         function addToShoppingCart(productId) {
             let deffered = $q.defer();
 
-            $http.post('http://localhost:7878/add_product_in_shopping_cart/' + productId)
+            $http.post(CONFIG.host + '/add_product_in_shopping_cart/' + productId)
                 .then(function(result) {
                     if (result.data.productAdded) {
                         deffered.resolve(true);
@@ -61,14 +62,15 @@ angular.module('myApp.product', ['ngRoute'])
     '$routeParams',
     '$timeout',
     'productApi',
-    function($scope, $routeParams, $timeout, productApi) {
+    'CONFIG',
+    function($scope, $routeParams, $timeout, productApi, CONFIG) {
 
         let productId = $routeParams.productId;
 
         productApi.getProductDetails(productId)
             .then(function(product) {
                 $scope.productFound = true;
-                $scope.imageDir = "http://localhost:7878/public/images/";
+                $scope.imageDir = CONFIG.host + "/public/images/";
 
                 let productPrice = +product.price;
                 product.price = productPrice.toFixed(2);

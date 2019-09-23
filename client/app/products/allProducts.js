@@ -12,12 +12,13 @@ angular.module('myApp.allProducts', ['ngRoute'])
 .factory('allProductsApi', [
     '$http', 
     '$q',
-    function ($http, $q) {
+    'CONFIG',
+    function ($http, $q, CONFIG) {
 
         function getAllProducts () {
             let deffered = $q.defer();
 
-            $http.get('http://localhost:7878/get_all_products')
+            $http.get(CONFIG.host + '/get_all_products')
                 .then(function(result) {
                     deffered.resolve(result.data);
                 }, function(err) {
@@ -36,12 +37,13 @@ angular.module('myApp.allProducts', ['ngRoute'])
 .controller('HomeController', [
     '$scope',
     'allProductsApi',
-    function($scope, allProductsApi) {
+    'CONFIG',
+    function($scope, allProductsApi, CONFIG) {
         allProductsApi.getAllProducts()
             .then(function(products) {
                 $scope.productsFound = true;
                 
-                $scope.imageDir = "http://localhost:7878/public/images/";
+                $scope.imageDir = CONFIG.host + "/public/images/";
                 $scope.products = products;
 
                 products.forEach(function(product) {

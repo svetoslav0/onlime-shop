@@ -13,12 +13,13 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
 .factory('shoppingCartApi', [
     '$http',
     '$q',
-    function($http, $q) {
+    'CONFIG',
+    function($http, $q, CONFIG) {
 
         function getShoppingCartProducts() {
             let deffered = $q.defer();
 
-            $http.get('http://localhost:7878/get_shopping_cart_products/')
+            $http.get(CONFIG.host + '/get_shopping_cart_products/')
                 .then(function(result) {
                     deffered.resolve(result.data);
                 }, function(err) {
@@ -32,7 +33,7 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
         function removeProductFromShoppingCart(productId) {
             let deffered = $q.defer();
 
-            $http.post('http://localhost:7878/remove_product_from_shopping_cart/' + productId)
+            $http.post(CONFIG.host + '/remove_product_from_shopping_cart/' + productId)
                 .then(function(result) {
                     if (result.data.productRemoved) {
                         deffered.resolve();
@@ -50,7 +51,7 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
         function emptyShoppingCart() {
             let deffered = $q.defer();
 
-            $http.post('http://localhost:7878/empty_shopping_cart')
+            $http.post(CONFIG.host + '/empty_shopping_cart')
                 .then(function(result) {
                     deffered.resolve(result.data);
                 }, function (err) {
@@ -72,11 +73,12 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
 .controller('ShoppingCartController', [
     '$scope',
     'shoppingCartApi',
-    function($scope, shoppingCartApi) {
+    'CONFIG',
+    function($scope, shoppingCartApi, CONFIG) {
         function loadProducts() {      
             shoppingCartApi.getShoppingCartProducts()
                 .then(function(fetchedProducts) {
-                    $scope.imageDir = "http://localhost:7878/public/images/";
+                    $scope.imageDir = CONFIG.host + "/public/images/";
 
                     $scope.showTable = true;
                     if(fetchedProducts.length == 0) {
