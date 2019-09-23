@@ -13,7 +13,7 @@ class Categories extends CI_Controller
         $this->load->model('categoriesModel');
     }
 
-    public function findAll()
+    public function findAll(): void
     {
         $categories = $this->categoriesModel->getCategories();
 

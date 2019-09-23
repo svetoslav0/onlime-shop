@@ -34,7 +34,11 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
 
             $http.post('http://localhost:7878/remove_product_from_shopping_cart/' + productId)
                 .then(function(result) {
-                    deffered.resolve(result.data);
+                    if (result.data.productRemoved) {
+                        deffered.resolve();
+                    } else {
+                        deffered.reject(result.data.message);
+                    }
                 }, function (err) {
                     deffered.reject(err);
                 }
@@ -98,6 +102,9 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
             shoppingCartApi.removeProductFromShoppingCart(productId)
                 .then(function (result) {
                     loadProducts();
+                }, function (err) {
+                    $scope.showMessage = true;
+                    $scope.message = err;
                 }
             );
         }
@@ -108,7 +115,8 @@ angular.module('myApp.shoppingCart', ['ngRoute'])
                     if (response) {
                         loadProducts();
                     }
-                })
+                },
+            );
         }
     }
 ]);

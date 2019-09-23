@@ -16,14 +16,14 @@ class Products extends CI_Controller
         $this->load->model('productsModel');
     }
 
-    public function findAll()
+    public function findAll(): void
     {
         $products = $this->productsModel->getAll();
 
         echo json_encode($products);
     }
 
-    public function findById($id)
+    public function findById(int $id): void
     {
         $product = $this->productsModel->getOneById($id);
 
@@ -40,9 +40,9 @@ class Products extends CI_Controller
         }
     }
 
-    public function findAllForCategory($category_id)
+    public function findAllForCategory(int $categoryId): void
     {
-        $products = $this->productsModel->getProductsForCategory($category_id);
+        $products = $this->productsModel->getProductsForCategory($categoryId);
 
         if ($products) {
             echo json_encode([

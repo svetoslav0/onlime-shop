@@ -7,7 +7,7 @@
 
 class productsModel extends CI_Model
 {
-    public function getAll()
+    public function getAll(): array
     {
         $this->db->select('p.id, p.name AS product_name, p.price, p.picture, c.name AS category_name');
         $this->db->from('products AS p');
@@ -18,7 +18,7 @@ class productsModel extends CI_Model
         return $result;
     }
 
-    public function getOneById($id)
+    public function getOneById(int $id)
     {
         $this->db->select('p.id, p.name AS product_name, p.price, p.description, p.picture, c.name AS category_name');
         $this->db->from('products AS p');
@@ -31,12 +31,12 @@ class productsModel extends CI_Model
     }
 
 
-    public function getProductsForCategory($category_id)
+    public function getProductsForCategory(int $categoryId): array
     {
         $this->db->select('p.id, p.name AS product_name, p.price, p.picture, c.id AS category_id, c.name AS category_name');
         $this->db->from('products AS p');
         $this->db->join('categories AS c', 'p.category_id = c.id');
-        $this->db->where('c.id', $category_id);
+        $this->db->where('c.id', $categoryId);
 
         $result = $this->db->get()->result();
 

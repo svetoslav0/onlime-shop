@@ -7,7 +7,7 @@
 
 class categoriesModel extends CI_Model
 {
-    public function getCategories()
+    public function getCategories(): array
     {
         $this->db->select('id, name');
         $this->db->from('categories');
